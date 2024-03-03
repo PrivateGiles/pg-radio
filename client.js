@@ -18,8 +18,8 @@ SetRadioStationDisabled("RADIO_08_MEXICAN", true);
 SetRadioStationDisabled("RADIO_37_MOTOMAMI", true);
 SetRadioStationDisabled("RADIO_36_AUDIOPLAYER", true);
 
-for (let i = 0, length = GetNumResourceMetadata("bs-radio", "supersede_radio"); i < length; i++) {
-    const radio = GetResourceMetadata("bs-radio", "supersede_radio", i);
+for (let i = 0, length = GetNumResourceMetadata("pg-radio", "supersede_radio"); i < length; i++) {
+    const radio = GetResourceMetadata("pg-radio", "supersede_radio", i);
 
     if (!availableRadios.includes(radio)) {
         console.error(`bs-radio: ${radio} is an invalid radio.`);
@@ -27,7 +27,7 @@ for (let i = 0, length = GetNumResourceMetadata("bs-radio", "supersede_radio"); 
     }
 
     try {
-        const data = JSON.parse(GetResourceMetadata("bs-radio", "supersede_radio_extra", i));
+        const data = JSON.parse(GetResourceMetadata("pg-radio", "supersede_radio_extra", i));
         if (data !== null) {
             customRadios.push({
                 "isPlaying": false,
@@ -45,8 +45,8 @@ for (let i = 0, length = GetNumResourceMetadata("bs-radio", "supersede_radio"); 
     }
 }
 
-RegisterNuiCallbackType("bs-radio:ready");
-on("__cfx_nui:bs-radio:ready", (data, cb) => {
+RegisterNuiCallbackType("pg-radio:ready");
+on("__cfx_nui:pg-radio:ready", (data, cb) => {
     SendNuiMessage(JSON.stringify({ "type": "create", "radios": customRadios, "volume": volume }));
     previousVolume = -1;
 });
